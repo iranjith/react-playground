@@ -3,6 +3,7 @@ import Message from "./Message";
 import Alert from "./components/Alert";
 import Button from "./components/Button/Button";
 import ListGroup from "./components/ListGroup/ListGroup";
+import Like from "./components/Like";
 
 function App() {
   const [alertVisible, setAlertVisiblity] = useState(false);
@@ -14,8 +15,8 @@ function App() {
         Test
       </Button> */}
 
-      <Button  color="primary" onClick={() => setAlertVisiblity(true)}>Test Button</Button>
-
+      {/* <Button  color="primary" onClick={() => setAlertVisiblity(true)}>Test Button</Button> */}
+      <Like onClick={()=> console.log("clicked") }></Like>
      
     </div>
   );
