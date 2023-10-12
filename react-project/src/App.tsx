@@ -6,21 +6,25 @@ import ListGroup from "./components/ListGroup/ListGroup";
 import Like from "./components/Like";
 
 function App() {
+  const [customer, setCustomer] = useState({
+    name: "Ranjith",
+    address: {
+      city: "San Francisco",
+      zipCode: 94111,
+    },
+  });
 
-  const[drink, setDrink]= useState({
-    title:"Americano",
-    price: 5
-  })
-
-  const handleClick=()=>{
-     setDrink({...drink,price:6});
-  }
+  const handleClick = () => {
+    setCustomer({
+      ...customer,
+      address: { ...customer.address, zipCode: 94112 },
+    });
+  };
 
   return (
     <div>
-      {drink.price}
+      {customer.address.zipCode}
       <button onClick={handleClick}>Click Me</button>
-     
     </div>
   );
 }
