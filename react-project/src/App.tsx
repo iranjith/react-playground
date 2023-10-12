@@ -6,17 +6,20 @@ import ListGroup from "./components/ListGroup/ListGroup";
 import Like from "./components/Like";
 
 function App() {
-  const [alertVisible, setAlertVisiblity] = useState(false);
+
+  const[drink, setDrink]= useState({
+    title:"Americano",
+    price: 5
+  })
+
+  const handleClick=()=>{
+     setDrink({...drink,price:6});
+  }
 
   return (
     <div>
-      {/* {alertVisible && <Alert onClose={()=>setAlertVisiblity(false) }>My Alert</Alert>}
-      <Button color="primary" onClick={() => setAlertVisiblity(true)}>
-        Test
-      </Button> */}
-
-      {/* <Button  color="primary" onClick={() => setAlertVisiblity(true)}>Test Button</Button> */}
-      <Like onClick={()=> console.log("clicked") }></Like>
+      {drink.price}
+      <button onClick={handleClick}>Click Me</button>
      
     </div>
   );
