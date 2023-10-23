@@ -14,7 +14,7 @@ import ExpenseFilter from "./expense-tracker/components/ExpenseFilter";
 import ExpenseForm from "./expense-tracker/components/ExpenseForm";
 import categories from "./expense-tracker/categories";
 import ProductList from "./components/ProductList";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 interface User {
   id: number;
@@ -27,21 +27,25 @@ function App() {
   const [error, setError] = useState("");
 
   //effect hook used to call server
+  //not elegant using async/await in React
   useEffect(() => {
-    axios
-      .get<User[]>("https://jsonplaceholder.typicode.com/users")
-      .then((res) => {
+    const fetchUsers = async () => {
+      try {
+        const res = await axios.get<User[]>(
+          "https://jsonplaceholder.typicode.com/users"
+        );
         setUsers(res.data);
-        //console.log(res.data[0].id);
-      })
-      .catch((e) => {
-        console.log(e.message);
-      });
+      } catch (err) {
+        setError((err as AxiosError).message);
+      }
+    };
+
+    fetchUsers();
   }, []);
 
   return (
     <>
-      {error && <p className="text-danger">{error}</p> }
+      {error && <p className="text-danger">{error}</p>}
       <ul>
         {users.map((user) => (
           <li key={user.id}>{user.name} </li>
@@ -52,3 +56,6 @@ function App() {
 }
 
 export default App;
+function async() {
+  throw new Error("Function not implemented.");
+}
