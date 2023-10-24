@@ -16,29 +16,11 @@ import categories from "./expense-tracker/categories";
 import ProductList from "./components/ProductList";
 import { CanceledError } from "./services/api-client";
 import userService, { User } from "./services/user-service";
+import useUsers from "./hooks/useUsers";
 
 function App() {
-  const [users, setUsers] = useState<User[]>([]);
-  const [error, setError] = useState("");
-  const [isLoading, setLoading] = useState(false);
 
-  //effect hook used to call server
-  useEffect(() => {
-    setLoading(true);
-
-    const { request, cancel } = userService.getAll<User>();
-    request
-      .then((res) => {
-        setUsers(res.data);
-        setLoading(false);
-      })
-      .catch((e) => {
-        if (e instanceof CanceledError) return;
-        setError(e.message);
-        setLoading(false);
-      });
-    return () => cancel();
-  }, []);
+  const  {users,error,isLoading,setError,setUsers}=useUsers();
 
   const deleteUser = (user: User) => {
     const originalUsers = [...users];
